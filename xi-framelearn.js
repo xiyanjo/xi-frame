@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 19:46:10
+* @Last Modified time: 2017-03-21 20:03:39
 */
 ( function ( global ){
 	var document = global.document;
@@ -34,6 +34,45 @@
 		}
 		return this;
 	}
+
+	// 工具类方法
+	joe.extend( {
+		type: function ( obj ){
+			if ( obj==null ) {
+				return obj +'';
+			}
+			return typeof obj !== 'object'? typeof obj :
+				Object.prototype.toString.call( obj ).slice( 8,-1 ).toLowerCase();
+		}
+	} )
+
+	// 添加类型判断方法
+	joe.$.extend( {
+       isString: function ( obj ){
+       	  return typeof obj === 'string' ;
+       },
+       // HTML标签
+       isHTML:function ( obj ){
+       	  return obj.charAt( 0 ) === '<' 
+       	  	&& obj.charAt( obj.length-1 ) === '>' 
+       	  	&& obj.length >=3;
+       },
+       isDOM:function ( obj ){
+       	   return !!obj && !!obj.nodeType;
+       },
+       isArrayLike:function ( obj ){
+
+       },
+       isFunction:function ( obj ){
+
+       },
+       isWindow:function ( obj ){
+       	// 非null/undefined 且window.window === window 
+       	   return !!obj && obj.window === obj;
+       }
+	} );
+	
+
 
 	// support RequireJS and SeaJs
 	if ( typeof define === 'function' ) {
