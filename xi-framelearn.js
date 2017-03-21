@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 21:52:04
+* @Last Modified time: 2017-03-21 23:12:09
 */
 ( function ( global ){
 	var document = global.document;
@@ -127,6 +127,16 @@
 				}
 			}
 			return obj;
+		},
+		unique: function ( arr ){
+			var ret = [];
+			joe.each( arr,function (){
+				// 表示ret不含当前元素
+				if( ret.indexOf( this ) === -1){
+					ret.push( this );
+				}
+			} );
+			return ret;
 		}
 	} )
 
