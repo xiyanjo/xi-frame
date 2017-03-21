@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 20:54:53
+* @Last Modified time: 2017-03-21 21:16:46
 */
 ( function ( global ){
 	var document = global.document;
@@ -77,6 +77,29 @@
 				}
 			}
 			return ret;
+		},
+		// 遍历
+		each: function ( obj,callback ){
+			var i=0,
+				l;
+			// 数组伪数组
+			if ( joe.isArrayLike( obj ) ) {
+				l = obj.length;
+				for ( ;i<l;i++ ){
+					// 功能 return false 循环结束,this的指向为遍历到的每一项
+					if ( callback.call( obj[i],i,obj[i] ) === false) {
+						break;
+					}
+				}
+			// obj为对象
+			} else {
+				for( i in obj ){
+					if ( callback.call(obj[i],i,obj[i]) ===false ) {
+						break;
+					}
+				}
+			}
+			return obj;
 		}
 	} )
 
