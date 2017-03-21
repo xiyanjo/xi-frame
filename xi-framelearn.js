@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 20:30:11
+* @Last Modified time: 2017-03-21 20:47:14
 */
 ( function ( global ){
 	var document = global.document;
@@ -14,8 +14,18 @@
 	}
 	joe.fn = joe.prototype = {
 		constructor:joe
+
 	};
 	var init = joe.fn.init = function ( selector ){
+		if ( !selector ) {
+			return this;
+		} else if ( joe.isString( selector )) {
+			if ( joe.isHTML( selector ) ) {
+				push.apply( this,joe.parseHTML( selector ) );
+			} else {
+				push.apply( selector )
+			} 
+		}
 	};
 	init.prototype = joe.fn;
 // joe工厂函数,joe原型的扩展方法
