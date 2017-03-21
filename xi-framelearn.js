@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 19:21:58
+* @Last Modified time: 2017-03-21 19:32:29
 */
 ( function ( global ){
 	var document = global.document;
@@ -19,12 +19,14 @@
 	};
 	init.prototype = joe.fn;
 
+
+
 	// support RequireJS and SeaJs
 	if ( typeof define === 'function' ) {
 		define( function (){
 			return joe;
 		});
-	};
+	}
 	// support NodeJS
   	else if ( typeof exports !== 'undefined' ){
     	module.exports = joe;
