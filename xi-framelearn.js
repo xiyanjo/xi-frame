@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 21:16:46
+* @Last Modified time: 2017-03-21 21:35:30
 */
 ( function ( global ){
 	var document = global.document;
@@ -13,7 +13,12 @@
 		return new init( selector );
 	}
 	joe.fn = joe.prototype = {
-		constructor:joe
+		constructor:joe,
+		length:0,//joe是伪数组对象，默认length属性为0 
+		each: function (){
+			joe.each( this,callback );
+			return this;
+		}
 
 	};
 	// joe对象
