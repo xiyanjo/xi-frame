@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 23:29:10
+* @Last Modified time: 2017-03-21 23:49:53
 */
 ( function ( global ){
 	var document = global.document;
@@ -16,7 +16,7 @@
 	joe.fn = joe.prototype = {
 		constructor:joe,
 		length:0,//joe是伪数组对象，默认length属性为0 
-		each: function (){
+		each: function ( callback ){
 			joe.each( this,callback );
 			return this;
 		},
@@ -175,6 +175,27 @@
        }
 	} );
 	
+
+	// DOM操作模块
+	joe.fn.extend( {
+		appendTo: function ( target ){
+			var that = this;
+			var ret = [],
+				node;
+			target = joe( target );
+			// 目标位置元素遍历
+			target.each( function ( i,elem ){
+				// 要追加的遍历
+				that.each( function (){
+					// 若为第一个要追加的dom元素则不复制，以后都要复制
+					node = i === 0? this:this.cloneNode(true);
+					ret.push( node );
+					elem.appendChild( node );
+				} )
+			} )
+     		return joe( ret );
+		}
+	} )
 
 
 	// support RequireJS and SeaJs
