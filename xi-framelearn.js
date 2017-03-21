@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 20:47:14
+* @Last Modified time: 2017-03-21 20:54:53
 */
 ( function ( global ){
 	var document = global.document;
@@ -16,6 +16,7 @@
 		constructor:joe
 
 	};
+	// joe对象
 	var init = joe.fn.init = function ( selector ){
 		if ( !selector ) {
 			return this;
@@ -23,8 +24,17 @@
 			if ( joe.isHTML( selector ) ) {
 				push.apply( this,joe.parseHTML( selector ) );
 			} else {
-				push.apply( selector )
+				push.apply( this,document.querySelectorAll( selector ) );
 			} 
+		} else if ( joe.isDOM( selector ) ) {
+			this[ 0 ] = selector;
+			this.length = 1;
+		} else if ( joe.isArrayLike( selector ) ) {
+			push.apply( this,selector );
+		} else if ( joe.isFunction( selector ) ){
+			document.addEventListener( 'DOMContentLoaded',function (){
+				selector();
+			} );
 		}
 	};
 	init.prototype = joe.fn;
