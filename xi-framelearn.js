@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 20:03:39
+* @Last Modified time: 2017-03-21 20:30:11
 */
 ( function ( global ){
 	var document = global.document;
@@ -43,11 +43,25 @@
 			}
 			return typeof obj !== 'object'? typeof obj :
 				Object.prototype.toString.call( obj ).slice( 8,-1 ).toLowerCase();
+		},
+		// 将HTML字符串转成对应的元素节点类型
+		parseHTML: function ( html ){
+			var ret=[],
+				div,
+				node;
+			div = document.createElement( 'div' );
+			div.innerHTML = html;
+			for ( node = div.firstChild;node;node = node.nextSibling ){
+				if ( node.nodeType===1 ) {
+					ret.push( node );
+				}
+			}
+			return ret;
 		}
 	} )
 
 	// 添加类型判断方法
-	joe.$.extend( {
+	joe.extend( {
        isString: function ( obj ){
        	  return typeof obj === 'string' ;
        },
@@ -61,10 +75,19 @@
        	   return !!obj && !!obj.nodeType;
        },
        isArrayLike:function ( obj ){
-
+       	   	var type = joe.type( obj ),
+       	   		length = !!obj && 'length' in obj && obj.length;
+       	   		// 过滤具有length属性的函数和window对象
+       	   	if ( type ==='function'|| joe.isWindow( obj ) ) {
+       	   		return false;
+       	   	}
+       	   	// 真数组、伪数组
+       	   	return type === 'array'|| length === 0||
+       	   		typeof length === 'number' && length > 0 
+       	   		&& (length-1) in obj;
        },
        isFunction:function ( obj ){
-
+       	   return joe.type ( obj ) === 'function';
        },
        isWindow:function ( obj ){
        	// 非null/undefined 且window.window === window 
