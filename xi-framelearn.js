@@ -2,12 +2,13 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 21:35:30
+* @Last Modified time: 2017-03-21 21:52:04
 */
 ( function ( global ){
 	var document = global.document;
 	var arr = [];
 	var push = arr.push;
+	var slice = arr.slice;
 
 	function joe ( selector ){
 		return new init( selector );
@@ -18,8 +19,29 @@
 		each: function (){
 			joe.each( this,callback );
 			return this;
-		}
-
+		},
+		// 将ITcast对象转为真数组
+		toArray: function (){
+			return slice.call( this );
+		},
+		// 根据索引获取dom对象
+		get: function ( index ){
+			if ( index == null ) {
+				return this.toArray();
+			}
+			return  this[ index<0 ? this.length+index:index ] ;
+		},
+		// 根据索引获取joe对象
+		eq:function ( index ){
+     		return itcast( this[ index < 0 ? this.length + index : index ] );
+		},
+		first: function (){
+			return this.eq(0);
+		},
+		last: function (){
+			return this.eq(-1);
+		},
+		splice:arr.splice//鸭子模型 以真数组形式显示
 	};
 	// joe对象
 	var init = joe.fn.init = function ( selector ){
