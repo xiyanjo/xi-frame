@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-22 21:06:08
+* @Last Modified time: 2017-03-22 21:11:27
 */
 ( function ( global ){
 	var document = global.document;
@@ -221,6 +221,16 @@
 			source = joe( source );
 			source.prependTo( this );
 			return this;
+		},
+		next: function (){
+			var ret = [];
+			this.each( function ( i,elem ){
+				while( ( elem = elem.nextsibling ) && elem.nodeType !== 1 ){} 
+				if ( elem != null ) {
+					ret.push( elem );
+				}
+			} );
+			return joe( ret );
 		}
 	} )
 
