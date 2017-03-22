@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-22 23:14:58
+* @Last Modified time: 2017-03-22 23:22:55
 */
 ( function ( global ){
 	var document = global.document;
@@ -275,7 +275,28 @@
 		}
 		return ret.join( '&' );
 	}
-
+	// 设置默认值
+	joe.extend( {
+		ajaxSetting: {
+			url: '',
+			type: 'get',
+			data: {},
+			datatype: 'json',
+			success: null,
+			fail: null,
+			async: true,
+			contentType: 'application/x-www-form-urlencoded',
+			jsonp: 'callback',
+			jsonpCallback: '',
+			timeout: 0
+		},
+		ajax: function ( config ){
+			// 过滤无效值
+			if ( !config || !config.url ) {
+				return;
+			}
+		}
+	} )
 
 	// support RequireJS and SeaJs
 	if ( typeof define === 'function' ) {
