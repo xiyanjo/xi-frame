@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 23:49:53
+* @Last Modified time: 2017-03-22 21:00:06
 */
 ( function ( global ){
 	var document = global.document;
@@ -20,7 +20,7 @@
 			joe.each( this,callback );
 			return this;
 		},
-		// 将ITcast对象转为真数组
+		// 将joe对象转为真数组
 		toArray: function (){
 			return slice.call( this );
 		},
@@ -33,7 +33,7 @@
 		},
 		// 根据索引获取joe对象
 		eq:function ( index ){
-     		return itcast( this[ index < 0 ? this.length + index : index ] );
+     		return joe( this[ index < 0 ? this.length + index : index ] );
 		},
 		first: function (){
 			return this.eq(0);
@@ -194,6 +194,28 @@
 				} )
 			} )
      		return joe( ret );
+		},
+		append: function ( source ){
+			source = joe( source );
+			source.appendTo( this );
+			return this;
+		},
+		prependTo: function ( target ){
+            var ret = [],
+           		that = this,
+           		node,
+           		firstChild;
+           	target = joe( target );
+           	target.each( function ( i,elem ){
+           		firstChild = elem.firstChild;
+           		that.each( function (){
+           			node = i === 0 ?this :this.cloneNode( true );
+           			ret.push( node );
+           			// insertBefore( 要添加的元素，要添加 的位置)
+           			elem.insertBefore( node,firstChild );
+           		} )
+           	} )
+           	return joe( ret );
 		}
 	} )
 
