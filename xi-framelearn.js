@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-22 21:00:06
+* @Last Modified time: 2017-03-22 21:06:08
 */
 ( function ( global ){
 	var document = global.document;
@@ -216,6 +216,11 @@
            		} )
            	} )
            	return joe( ret );
+		},
+		prepend: function ( source ){
+			source = joe( source );
+			source.prependTo( this );
+			return this;
 		}
 	} )
 
