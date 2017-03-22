@@ -73,8 +73,15 @@
 	   // $('<s>456<s>').appendTo($('div'))
 	    // console.log($('i').appendTo($('div')))
 
-	    $('div').append('<ul>你好</ul>')
-	    $('<li>你好么</li>').prependTo($('ul'))
+	    // $('div').append('<ul>你好</ul>')
+	    // $('<li>你好么</li>').prependTo($('ul'))
+
+
+var one = $.extend( {},{name:'zhangsan',age:15}function (){}});
+console.log( one);//正常
+console.log($.extend( [],{name:'zhangsan',age:15}))//正常
+console.dir($.extend( null,{name:'zhangsan'},{age:15}))//正常
+console.dir($.extend( '222',{name:'zhangsan'},{age:15}))//22对象形式
 	 
 </script>
 

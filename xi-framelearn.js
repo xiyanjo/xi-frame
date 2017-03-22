@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-22 21:43:34
+* @Last Modified time: 2017-03-22 23:30:05
 */
 ( function ( global ){
 	var document = global.document;
@@ -70,16 +70,22 @@
 		var args = arguments,
 			i = 0,
 			l = args.length,
-			obj;
+			obj,
+			target = this;
+		if ( l>1 ) {
+			target = args[ 0 ] || {};//target的类型默认为对象
+			i = 1;//若第一个为目标元素则从第二个元素遍历
+		}
+		
 		for (; i < l; i++) {
 			obj = args[ i ];
 			for( var k in obj ){
 				if ( obj.hasOwnProperty( k ) ) {
-					this[ k ] = obj[ k ];
+					target[ k ] = obj[ k ];
 				}
 			}
 		}
-		return this;
+		return target;
 	}
 
 	// 工具类方法
