@@ -2,7 +2,7 @@
 * @Author: joe
 * @Date:   2017-03-21 19:01:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-22 21:11:27
+* @Last Modified time: 2017-03-22 21:37:08
 */
 ( function ( global ){
 	var document = global.document;
@@ -231,7 +231,32 @@
 				}
 			} );
 			return joe( ret );
+		},
+		nextAll: function (){
+			var ret = [];
+			this.each( function ( i,elem ){
+				var node = elem.nextSibling;
+				// （判断条件）
+				while( node ){
+					if( node.nodeType === 1 ){
+						ret.push( node );
+					}
+					node = node.nextSibling;
+				}
+			} )
+			return joe( joe.unique( ret ) ); 
+		},
+		remove: function (){
+			return this.each( function (){
+				this.parentNode.removeChild( this );
+			} );
+		},
+		empty:function (){
+			return this.each( function () {
+        		this.innerHTML = '';
+      		} );
 		}
+
 	} )
 
 
